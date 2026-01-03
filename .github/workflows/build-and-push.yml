@@ -127,8 +127,8 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
           script: |
-            cd ~/server
-            git pull origin main
+            cd /home/unarmedpuppy/server
+            sudo git pull origin main
             cd apps/agent-gateway
             sudo docker compose pull
             sudo docker compose up -d --remove-orphans
