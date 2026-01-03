@@ -1,0 +1,41 @@
+services:
+  agent-core:
+    build: ./core
+    container_name: agent-core
+    restart: unless-stopped
+    environment:
+      - LOCAL_AI_URL=${LOCAL_AI_URL:-http://llm-router:8000}
+      - LOCAL_AI_API_KEY=${LOCAL_AI_API_KEY:-}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    ports:
+      - "8022:8000"
+    networks:
+      - agent-network
+
+  agent-gateway:
+    build: ./gateway
+    container_name: agent-gateway
+    restart: unless-stopped
+    environment:
+      - AGENT_CORE_URL=http://agent-core:8000
+      - LOCAL_AI_URL=${LOCAL_AI_URL:-http://llm-router:8000}
+      - LOCAL_AI_API_KEY=${LOCAL_AI_API_KEY:-}
+      - GATEWAY_LOG_LEVEL=${GATEWAY_LOG_LEVEL:-INFO}
+      - DISCORD_TOKEN=${DISCORD_TOKEN:-}
+      - MATTERMOST_URL=${MATTERMOST_URL:-mattermost.server.unarmedpuppy.com}
+      - MATTERMOST_SCHEME=${MATTERMOST_SCHEME:-https}
+      - MATTERMOST_PORT=${MATTERMOST_PORT:-443}
+      - MATTERMOST_BOT_TAYNE_TOKEN=${MATTERMOST_BOT_TAYNE_TOKEN:-}
+      - MATTERMOST_BOT_MONITOR_TOKEN=${MATTERMOST_BOT_MONITOR_TOKEN:-}
+      - MATTERMOST_BOT_TRADING_TOKEN=${MATTERMOST_BOT_TRADING_TOKEN:-}
+      - TAYNE_WEBHOOK_TOKEN=${TAYNE_WEBHOOK_TOKEN:-}
+    ports:
+      - "8023:8000"
+    networks:
+      - agent-network
+    depends_on:
+      - agent-core
+
+networks:
+  agent-network:
+    driver: bridge
