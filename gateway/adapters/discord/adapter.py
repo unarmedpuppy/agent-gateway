@@ -56,6 +56,8 @@ class DiscordAdapter(BaseAdapter):
 
         intents = discord.Intents.default()
         intents.message_content = True
+        intents.guilds = True
+        intents.guild_messages = True
         self._client = discord.Client(intents=intents)
 
         @self._client.event
