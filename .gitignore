@@ -56,3 +56,5 @@ Thumbs.db
 
 # Local plans (gitignored scratch work)
 agents/plans/local/
+# Workspace Agents
+agents/.workspace-agents.json
