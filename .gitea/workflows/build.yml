@@ -1,0 +1,26 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  workflow_dispatch:
+
+jobs:
+  build-agent-core:
+    uses: unarmedpuppy/workflows/.gitea/workflows/docker-build.yml@main
+    with:
+      image_name: library/agent-core
+      app_path: apps/agent-gateway
+      dockerfile: core/Dockerfile
+      context: core
+    secrets: inherit
+
+  build-agent-gateway:
+    uses: unarmedpuppy/workflows/.gitea/workflows/docker-build.yml@main
+    with:
+      image_name: library/agent-gateway
+      app_path: apps/agent-gateway
+      dockerfile: gateway/Dockerfile
+      context: gateway
+    secrets: inherit
