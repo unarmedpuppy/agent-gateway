@@ -125,7 +125,7 @@ pytest
 
 ## Related
 
-- [Agent Core Architecture Plan](../../agents/plans/agent-core-architecture.md)
+- [Agent Core Architecture Plan](../../.agents/plans/agent-core-architecture.md)
 - [Discord Reaction Bot](../discord-reaction-bot/) - Discord adapter
 - [Mattermost Gateway](../mattermost-gateway/) - Mattermost adapter
 - [Local AI Router](../local-ai-router/) - LLM backend
